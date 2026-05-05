@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veille Informatique – Symfony | Evan Kieffer</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%236a11cb'/><stop offset='100%' stop-color='%232575fc'/></linearGradient></defs><rect width='32' height='32' rx='6' fill='url(%23grad)'/><text x='16' y='22' text-anchor='middle' fill='white' font-family='Poppins, sans-serif' font-weight='bold' font-size='14'>EK</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --dark: #0f0f1e;
+            --darker: #0a0a14;
+            --light: #f8f9fa;
+            --accent: #ff2e63;
+            --success: #00d2a8;
+            --symfony-black: #1A171B;
+            --symfony-green: #52B76B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--darker); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* NAV */
+        nav {
+            background: rgba(15, 15, 30, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            padding: 15px 0;
+        }
+        .nav-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-back:hover { color: var(--accent); }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, rgba(106,17,203,0.85), rgba(37,117,252,0.85));
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 30px;
+            padding: 6px 18px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #ccc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(100%) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            to { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .section-title h2 {
+            font-size: 2.3rem;
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+            margin: 14px auto 0;
+        }
+
+        /* WHAT IS SYMFONY */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+        .info-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .info-card h3 {
+            color: var(--accent);
+            margin-bottom: 14px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-card p, .info-card li {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            line-height: 1.8;
+        }
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .info-card ul li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .info-card ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+        }
+
+        /* VERSIONS TIMELINE */
+        .versions-section {
+            background: var(--darker);
+            padding: 80px 0;
+        }
+
+        .versions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .version-card {
+            background: rgba(255,255,255,0.04);
+            border-radius: 14px;
+            padding: 26px;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .version-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        .version-card.lts {
+            border-color: rgba(0, 210, 168, 0.3);
+        }
+        .version-card.lts::after {
+            content: 'LTS';
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: var(--success);
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        .version-card.current {
+            border-color: rgba(37, 117, 252, 0.5);
+        }
+        .version-card.current::after {
+            content: 'Actuelle';
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: var(--secondary);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        .version-number {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 6px;
+        }
+        .version-date {
+            font-size: 0.82rem;
+            opacity: 0.55;
+            margin-bottom: 14px;
+            font-family: 'Fira Code', monospace;
+        }
+        .version-features {
+            list-style: none;
+            padding: 0;
+        }
+        .version-features li {
+            font-size: 0.88rem;
+            opacity: 0.8;
+            padding: 4px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+        .version-features li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 0.75rem;
+        }
+
+        /* STAGE SECTION */
+        .stage-section {
+            background: rgba(106,17,203,0.08);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .stage-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .code-block {
+            background: #0d1117;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .code-header {
+            background: rgba(255,255,255,0.05);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.82rem;
+            opacity: 0.7;
+            font-family: 'Fira Code', monospace;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .code-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .code-body {
+            padding: 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.9;
+            color: #e2e8f0;
+            overflow-x: auto;
+        }
+        .kw { color: #c792ea; }
+        .fn { color: #82aaff; }
+        .str { color: #c3e88d; }
+        .cm { color: #546e7a; font-style: italic; }
+        .cls { color: #ffcb6b; }
+        .attr { color: #89ddff; }
+
+        .learned-list {
+            list-style: none;
+            padding: 0;
+        }
+        .learned-item {
+            display: flex;
+            gap: 16px;
+            padding: 18px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+        .learned-item:hover {
+            background: rgba(255,255,255,0.07);
+            transform: translateX(6px);
+        }
+        .learned-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+        .learned-text h4 {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            color: var(--accent);
+        }
+        .learned-text p {
+            font-size: 0.85rem;
+            opacity: 0.75;
+        }
+
+        /* SOURCES */
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .source-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 22px;
+            text-decoration: none;
+            color: var(--light);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .source-card:hover {
+            background: rgba(255,255,255,0.09);
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .source-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .source-card h4 {
+            font-size: 1rem;
+            color: var(--accent);
+        }
+        .source-card p {
+            font-size: 0.82rem;
+            opacity: 0.65;
+            line-height: 1.6;
+        }
+        .source-link {
+            font-size: 0.78rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: auto;
+        }
+
+        /* FOOTER */
+        footer {
+            background: rgba(0,0,0,0.4);
+            padding: 40px 0 24px;
+            text-align: center;
+            font-size: 0.88rem;
+            opacity: 0.7;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .intro-grid, .stage-grid { grid-template-columns: 1fr; }
+            .versions-grid { grid-template-columns: 1fr; }
+            .sources-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.8rem; }
+            .section-title h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">EK</a>
+            <a href="index.html" class="nav-back">
+                <i class="fas fa-arrow-left"></i> Retour au Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-particles" id="heroParticles"></div>
+        <div class="container">
+            <div class="hero-badge">
+                <i class="fas fa-satellite-dish"></i>
+                Veille Informatique
+            </div>
+            <h1>Symfony</h1>
+            <p class="hero-subtitle">Framework PHP open-source — suivi des évolutions, de mon expérience en stage et des ressources utiles</p>
+        </div>
+    </div>
+
+    <!-- PRÉSENTATION -->
+    <section id="presentation">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>C'est quoi Symfony ?</h2>
+            </div>
+            <div class="intro-grid">
+                <div class="info-card reveal">
+                    <h3><i class="fas fa-cube"></i> Définition</h3>
+                    <p>Symfony est un <strong>framework PHP open-source</strong> créé en 2005 par Fabien Potencier chez SensioLabs. Il fournit un ensemble de composants réutilisables et d'outils pour construire des applications web robustes, performantes et maintenables.</p>
+                    <br>
+                    <p>C'est l'un des frameworks PHP les plus utilisés dans le monde professionnel, notamment en France, et il sert de base à d'autres projets majeurs comme <strong>Drupal</strong>, <strong>Laravel</strong> ou <strong>API Platform</strong>.</p>
+                </div>
+                <div class="info-card reveal">
+                    <h3><i class="fas fa-layer-group"></i> Architecture MVC</h3>
+                    <p>Symfony suit le patron de conception <strong>MVC (Modèle-Vue-Contrôleur)</strong> :</p>
+                    <ul>
+                        <li><strong>Modèle</strong> — gestion des données via Doctrine ORM</li>
+                        <li><strong>Vue</strong> — rendu HTML avec le moteur de templates Twig</li>
+                        <li><strong>Contrôleur</strong> — logique métier et traitement des requêtes</li>
+                        <li><strong>Routing</strong> — association des URLs aux contrôleurs</li>
+                        <li><strong>Services</strong> — injection de dépendances via le Container</li>
+                    </ul>
+                </div>
+                <div class="info-card reveal">
+                    <h3><i class="fas fa-tools"></i> Composants clés</h3>
+                    <ul>
+                        <li><strong>Doctrine</strong> — ORM pour la base de données</li>
+                        <li><strong>Twig</strong> — moteur de templates sécurisé</li>
+                        <li><strong>Symfony Form</strong> — génération et validation de formulaires</li>
+                        <li><strong>Security</strong> — authentification, autorisation, guards</li>
+                        <li><strong>Messenger</strong> — files de messages asynchrones</li>
+                        <li><strong>Console</strong> — commandes CLI personnalisées</li>
+                    </ul>
+                </div>
+                <div class="info-card reveal">
+                    <h3><i class="fas fa-star"></i> Pourquoi l'utiliser ?</h3>
+                    <ul>
+                        <li>Très utilisé en entreprise, notamment en France</li>
+                        <li>Code structuré, maintenable et testable</li>
+                        <li>Documentation complète et communauté active</li>
+                        <li>Cycle de vie prévisible avec versions LTS</li>
+                        <li>Compatible avec les dernières nouveautés PHP 8+</li>
+                        <li>Suivi actif de la sécurité et des correctifs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VERSIONS -->
+    <section class="versions-section" id="versions">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Versions & Actualités</h2>
+            </div>
+            <div class="versions-grid">
+                <div class="version-card current reveal">
+                    <div class="version-number">7.3</div>
+                    <div class="version-date">Mai 2025 — Dernière stable</div>
+                    <ul class="version-features">
+                        <li>Nouvelles fonctionnalités communautaires majeures</li>
+                        <li>Code plus déclaratif et lisible</li>
+                        <li>Nouveaux composants et bonnes pratiques</li>
+                        <li>Compatibilité PHP 8.2+</li>
+                    </ul>
+                </div>
+                <div class="version-card reveal">
+                    <div class="version-number">7.2</div>
+                    <div class="version-date">Novembre 2024</div>
+                    <ul class="version-features">
+                        <li>Barre de debug plus intuitive</li>
+                        <li>Meilleure gestion des en-têtes de sécurité HTTP (CSP)</li>
+                        <li>Hachage Argon2id et Sodium renforcé</li>
+                        <li>Support natif Redis Streams pour Messenger</li>
+                        <li>Intégration Docker Compose améliorée</li>
+                    </ul>
+                </div>
+                <div class="version-card lts reveal">
+                    <div class="version-number">6.4</div>
+                    <div class="version-date">Novembre 2023 — Support jusqu'en 2027</div>
+                    <ul class="version-features">
+                        <li>Version LTS : bugs maintenus 3 ans, sécurité 4 ans</li>
+                        <li>Base stable recommandée pour les projets d'entreprise</li>
+                        <li>Compatible PHP 8.1+</li>
+                        <li>Idéale pour les migrations progressives vers Symfony 7</li>
+                    </ul>
+                </div>
+                <div class="version-card reveal">
+                    <div class="version-number">7.0</div>
+                    <div class="version-date">Novembre 2023 — Non maintenu</div>
+                    <ul class="version-features">
+                        <li>Adoption des attributs PHP 8 (fin des annotations)</li>
+                        <li>AssetMapper remplace Webpack Encore</li>
+                        <li>Early hints HTTP pour un chargement anticipé</li>
+                        <li>Nettoyage des dépréciations de Symfony 6.x</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="info-card reveal" style="margin-top: 30px; max-width: 700px; margin-left: auto; margin-right: auto; text-align: center;">
+                <h3 style="justify-content: center;"><i class="fas fa-calendar-alt"></i> Cycle de versions Symfony</h3>
+                <p>Symfony suit un <strong>cycle prévisible</strong> : une version mineure tous les 6 mois (mai & novembre), une version majeure tous les 2 ans. Les versions <strong>LTS (X.4)</strong> bénéficient d'un support de 3 ans pour les bugs et 4 ans pour la sécurité. La prochaine LTS attendue est la <strong>7.4</strong> fin 2025.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MON EXPÉRIENCE EN STAGE -->
+    <section class="stage-section" id="stage">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Ce que j'ai appris en stage</h2>
+            </div>
+            <div style="text-align:center; margin-bottom: 30px; opacity: 0.7; font-size: 0.95rem;" class="reveal">
+                Stage chez <strong>Enedis</strong> — Mai 2025 — Développeur Web PHP/Symfony (6 semaines)
+            </div>
+            <div class="stage-grid">
+                <div class="reveal">
+                    <ul class="learned-list">
+                        <li class="learned-item">
+                            <div class="learned-icon"><i class="fas fa-route"></i></div>
+                            <div class="learned-text">
+                                <h4>Routing avec attributs PHP 8</h4>
+                                <p>Utilisation des attributs <code>#[Route]</code> pour définir les routes directement dans les contrôleurs, sans fichier YAML.</p>
+                            </div>
+                        </li>
+                        <li class="learned-item">
+                            <div class="learned-icon"><i class="fas fa-database"></i></div>
+                            <div class="learned-text">
+                                <h4>Doctrine ORM</h4>
+                                <p>Création d'entités, de repositories, et requêtes avec le QueryBuilder pour des listings filtrés et paginés.</p>
+                            </div>
+                        </li>
+                        <li class="learned-item">
+                            <div class="learned-icon"><i class="fas fa-code"></i></div>
+                            <div class="learned-text">
+                                <h4>Templates Twig</h4>
+                                <p>Création de vues dynamiques avec héritage de templates, macros et filtres Twig pour les pages de listing MCO.</p>
+                            </div>
+                        </li>
+                        <li class="learned-item">
+                            <div class="learned-icon"><i class="fas fa-check-double"></i></div>
+                            <div class="learned-text">
+                                <h4>Checklist dynamique</h4>
+                                <p>Développement d'un système de checklist MCO avec validation en temps réel, persistance en base et interface d'administration.</p>
+                            </div>
+                        </li>
+                        <li class="learned-item">
+                            <div class="learned-icon"><i class="fas fa-users-cog"></i></div>
+                            <div class="learned-text">
+                                <h4>Méthode agile en équipe</h4>
+                                <p>Travail en équipe sur plusieurs sites avec sprints, revues de code et gestion de tickets.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="reveal">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <div class="code-dot" style="background:#ff5f57"></div>
+                            <div class="code-dot" style="background:#febc2e"></div>
+                            <div class="code-dot" style="background:#28c840"></div>
+                            <span>ChecklistController.php</span>
+                        </div>
+                        <div class="code-body">
+<span class="cm">// Exemple inspiré du stage Enedis</span>
+<span class="attr">#[Route</span>(<span class="str">'/checklist'</span>, <span class="kw">name</span>: <span class="str">'checklist_index'</span>)]
+<span class="kw">class</span> <span class="cls">ChecklistController</span> <span class="kw">extends</span> <span class="cls">AbstractController</span>
+{
+    <span class="kw">public function</span> <span class="fn">__construct</span>(
+        <span class="kw">private</span> <span class="cls">ChecklistRepository</span> $repo
+    ) {}
+
+    <span class="attr">#[Route</span>(<span class="str">'/'</span>, <span class="kw">name</span>: <span class="str">'list'</span>)]
+    <span class="kw">public function</span> <span class="fn">index</span>(): <span class="cls">Response</span>
+    {
+        $items = $<span class="kw">this</span>->repo
+            -><span class="fn">createQueryBuilder</span>(<span class="str">'c'</span>)
+            -><span class="fn">where</span>(<span class="str">'c.statut = :s'</span>)
+            -><span class="fn">setParameter</span>(<span class="str">'s'</span>, <span class="str">'actif'</span>)
+            -><span class="fn">orderBy</span>(<span class="str">'c.date'</span>, <span class="str">'DESC'</span>)
+            -><span class="fn">getQuery</span>()-><span class="fn">getResult</span>();
+
+        <span class="kw">return</span> $<span class="kw">this</span>-><span class="fn">render</span>(<span class="str">'checklist/index.html.twig'</span>, [
+            <span class="str">'items'</span> => $items,
+        ]);
+    }
+}
+                        </div>
+                    </div>
+                    <div class="code-block" style="margin-top: 20px;">
+                        <div class="code-header">
+                            <div class="code-dot" style="background:#ff5f57"></div>
+                            <div class="code-dot" style="background:#febc2e"></div>
+                            <div class="code-dot" style="background:#28c840"></div>
+                            <span>index.html.twig</span>
+                        </div>
+                        <div class="code-body">
+<span class="cm">{# Template Twig pour la checklist #}</span>
+<span class="attr">{% extends</span> <span class="str">'base.html.twig'</span> <span class="attr">%}</span>
+
+<span class="attr">{% block</span> content <span class="attr">%}</span>
+&lt;table&gt;
+  <span class="attr">{% for</span> item <span class="kw">in</span> items <span class="attr">%}</span>
+  &lt;tr&gt;
+    &lt;td&gt;<span class="attr">{{</span> item.nom <span class="attr">}}</span>&lt;/td&gt;
+    &lt;td&gt;
+      <span class="attr">{% if</span> item.valide <span class="attr">%}</span>
+        &lt;span <span class="kw">class</span>=<span class="str">"ok"</span>&gt;✓&lt;/span&gt;
+      <span class="attr">{% else %}</span>
+        &lt;span <span class="kw">class</span>=<span class="str">"ko"</span>&gt;✗&lt;/span&gt;
+      <span class="attr">{% endif %}</span>
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  <span class="attr">{% endfor %}</span>
+&lt;/table&gt;
+<span class="attr">{% endblock %}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOURCES -->
+    <section id="sources">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Sources & Ressources</h2>
+            </div>
+            <div class="sources-grid">
+                <a href="https://symfony.com" target="_blank" class="source-card reveal">
+                    <div class="source-icon"><i class="fas fa-globe"></i></div>
+                    <h4>Site officiel Symfony</h4>
+                    <p>Ma source principale. Annonces de versions, documentation complète, blog et actualités du framework directement depuis l'équipe Symfony.</p>
+                    <span class="source-link"><i class="fas fa-external-link-alt"></i> symfony.com</span>
+                </a>
+                <div class="source-card reveal" style="cursor: default;">
+                    <div class="source-icon"><i class="fas fa-envelope"></i></div>
+                    <h4>Newsletter Symfony <span style="font-size:0.7rem; background: var(--success); color:#000; padding: 2px 8px; border-radius: 10px; margin-left: 6px; vertical-align: middle;">Abonné</span></h4>
+                    <p>Newsletter officielle reçue par e-mail. Permet de suivre les nouvelles versions, les articles techniques et les événements sans avoir à aller chercher l'info.</p>
+                    <span class="source-link" style="color: var(--success);"><i class="fas fa-check-circle"></i> Inscrit via symfony.com</span>
+                </div>
+                <a href="https://symfony.com/blog" target="_blank" class="source-card reveal">
+                    <div class="source-icon"><i class="fas fa-rss"></i></div>
+                    <h4>Blog Symfony</h4>
+                    <p>"A Week of Symfony" publié chaque semaine : résumé des pull requests fusionnées, issues résolues et nouveautés en cours de développement.</p>
+                    <span class="source-link"><i class="fas fa-external-link-alt"></i> symfony.com/blog</span>
+                </a>
+                <a href="https://symfony.com/releases" target="_blank" class="source-card reveal">
+                    <div class="source-icon"><i class="fas fa-code-branch"></i></div>
+                    <h4>Releases & Versions</h4>
+                    <p>Page officielle listant toutes les versions actives, leurs dates de sortie et de fin de support. Utile pour savoir quelle version utiliser en projet.</p>
+                    <span class="source-link"><i class="fas fa-external-link-alt"></i> symfony.com/releases</span>
+                </a>
+                <a href="https://github.com/symfony/symfony" target="_blank" class="source-card reveal">
+                    <div class="source-icon"><i class="fab fa-github"></i></div>
+                    <h4>GitHub Symfony</h4>
+                    <p>Code source du framework. Permet de lire le CHANGELOG, suivre les pull requests et voir les corrections de bugs en temps réel.</p>
+                    <span class="source-link"><i class="fas fa-external-link-alt"></i> github.com/symfony/symfony</span>
+                </a>
+                <a href="https://symfonycasts.com" target="_blank" class="source-card reveal">
+                    <div class="source-icon"><i class="fas fa-play-circle"></i></div>
+                    <h4>SymfonyCasts</h4>
+                    <p>Tutoriels vidéo et écrits réalisés par les créateurs du framework. Idéal pour approfondir un composant ou découvrir les bonnes pratiques.</p>
+                    <span class="source-link"><i class="fas fa-external-link-alt"></i> symfonycasts.com</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Evan Kieffer — Veille Informatique Symfony</p>
+            <p style="margin-top: 8px;">
+                <a href="index.html" style="color: var(--secondary); text-decoration: none;">← Retour au portfolio</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Particles hero
+        const heroParticles = document.getElementById('heroParticles');
+        for (let i = 0; i < 18; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 60 + 15;
+            p.style.cssText = `
+                width: ${size}px; height: ${size}px;
+                left: ${Math.random() * 100}%;
+                animation-duration: ${Math.random() * 20 + 12}s;
+                animation-delay: ${Math.random() * 10}s;
+            `;
+            heroParticles.appendChild(p);
+        }
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, 80 * (Array.from(reveals).indexOf(entry.target) % 4));
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        reveals.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

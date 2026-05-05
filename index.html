@@ -649,6 +649,16 @@
             cursor: pointer;
         }
 
+        #veille .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            justify-items: center;
+        }
+
+        #veille .project-card {
+            width: 350px;
+        }
+
         .project-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.4);
@@ -1390,6 +1400,7 @@
                 <a href="#projects">Projets</a>
                 <a href="#art">Art</a>
                 <a href="#internships">Stages</a>
+                <a href="veille.html">Veille</a>
                 <a href="#contact">Contact</a>
             </div>
             <div class="mobile-menu">
@@ -1412,10 +1423,18 @@
                     <p>Je suis passionné par l'informatique et, en particulier, par la programmation et les jeux vidéo. J'aime créer, inventer, développer...</p>
                     
                     <h3 style="margin-top: 30px;">Diplômes</h3>
+                    
                     <ul style="margin-left: 20px; margin-top: 10px;">
                         <li>Bac professionnel SN (Systèmes Numériques) option RISC (Réseaux Informatiques et Systèmes Communicants) au lycée Saint-Gabriel à Saint-Laurent-Sur-Sèvre</li>
                         <li>Diplôme National du Brevet série Générale</li>
                     </ul>
+                     <h3 style="margin-top: 30px; color: var(--accent);">Tableau de compétence</h3>
+                <div class="competence-link">
+                    <a href="documents/tableauCompetence.pdf" target="_blank">
+                        <i class="fas fa-file-alt"></i>
+                        Tableau de synthèse des compétences
+                    </a>
+                </div>
                 </div>
                 <div class="skills fade-in">
                     <h3>Compétences en Programmation</h3>
@@ -1443,7 +1462,7 @@
                     </div>
                 </div>
             </div>
-                    <a href="documents/tableauCompetence.pdf"> Tableau de synthèse des réalisations professionnelles </a>
+           
 
         </div>
     </section>
@@ -1512,7 +1531,31 @@
             </div>
         </div>
     </section>
+<section id="veille">
+    <div class="container">
+        <div class="section-title">
+            <h2>Veille Informatique</h2>
+        </div>
 
+        <div class="projects-grid">
+            <div class="project-card fade-in" onclick="window.location.href='veille.html'">
+                <div class="project-img">
+                    <i class="fas fa-satellite-dish"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Symfony</h3>
+                    <p>
+                        Veille technologique sur le framework Symfony : 
+                        versions récentes, nouveautés, cycle LTS et retour d'expérience en stage.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-top: 30px;">
+        </div>
+    </div>
+</section>
     <!-- Art Section -->
     <section id="art">
         <div class="container">
@@ -1621,7 +1664,6 @@
             </div>
         </div>
     </section>
-
     <!-- Contact Section -->
     <section id="contact">
         <div class="container">
@@ -1658,7 +1700,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 Evan Kieffer - Tous droits réservés</p>
+            <p>&copy; 2026 Evan Kieffer - Tous droits réservés</p>
             <p style="margin-top: 10px; opacity: 0.7;">Développeur passionné de jeux vidéo et applications</p>
         </div>
     </footer>
