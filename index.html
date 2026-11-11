@@ -1997,7 +1997,7 @@
                 details: "Développement d'un jeu tron like pour l'unreal week créer dans le cadre scolaire, nous avions une semaine avec un groupe de 2 3D artist et d'un developeur pour refaire un jeu sur unreal (c'est aussi mon 1er jeu fait sur unreal engine)'",
                 link: "https://ydra.itch.io/spider-tron",
                 icon: "fas fa-spider",
-                image: "SpiderTron.png"
+                video: "GameplaySpiderTron.mp4"
             }
         ];
 
@@ -2325,24 +2325,35 @@
         const closeModal = document.querySelectorAll('.close-modal');
 
         function openGameModal(game) {
-            modalTitle.textContent = game.title;
             modalContent.innerHTML = `
-            <p><strong>Description:</strong> ${game.details}</p>
-            <p><strong>Lien:</strong> <a href="${game.link}" target="_blank" style="color: var(--accent);">${game.link}</a></p>
-            <div style="text-align: center; margin-top: 20px;">
-                <div style="max-width: 100%; max-height: 400px; display: flex; align-items: center; justify-content: center; border-radius: 10px; overflow: hidden; margin: 0 auto;">
-                    <img src="images/${game.image}" 
-                        alt="${game.title}" 
-                        style="max-width: 100%; max-height: 400px; width: auto; height: auto; object-fit: contain;"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                    <div style="width: 300px; height: 300px; background: linear-gradient(45deg, var(--primary), var(--secondary)); display: none; align-items: center; justify-content: center; border-radius: 10px;">
-                        <i class="${game.icon}" style="font-size: 5rem; color: white;"></i>
-                    </div>
-                </div>
-            </div>
-            `;
+    <p><strong>Description :</strong> ${game.details}</p>
+    <p><strong>Lien :</strong> 
+        <a href="${game.link}" target="_blank" style="color: var(--accent);">
+            ${game.link}
+        </a>
+    </p>
 
-            modal.classList.add('active');
+    <div style="text-align: center; margin-top: 20px;">
+        ${game.video ? `
+            <video 
+                controls 
+                autoplay 
+                muted 
+                loop 
+                playsinline
+                style="max-width: 100%; max-height: 400px; border-radius: 10px;">
+                <source src="images/${game.video}" type="video/mp4">
+                Votre navigateur ne supporte pas la lecture vidéo.
+            </video>
+        ` : `
+            <img src="images/${game.image}"
+                alt="${game.title}"
+                style="max-width: 100%; max-height: 400px; object-fit: contain;">
+        `}
+    </div>
+`;
+
+modal.classList.add('active');
         }
 
         // Project modal functionality
