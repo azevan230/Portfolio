@@ -198,6 +198,12 @@
             animation: fadeInUp 1s ease-out 0.2s both;
         }
 
+        .q {
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            quotes: initial;
+        }
+
         .contact-info {
             display: flex;
             justify-content: center;
@@ -344,7 +350,7 @@
         }
 
         .skill-item {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(8, 105, 160, 0.201);
             padding: 15px;
             border-radius: 10px;
             text-align: center;
@@ -371,7 +377,71 @@
 
         .skill-item:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(11, 124, 189, 0.201);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-item-engine {
+            background: rgba(126, 8, 120, 0.201);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-item-engine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .skill-item-engine:hover::before {
+            left: 100%;
+        }
+
+        .skill-item-engine:hover {
+            transform: translateY(-5px);
+            background: rgba(141, 9, 134, 0.201);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-item-important {
+            background: rgba(28, 8, 126, 0.201);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-item-important::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .skill-item-important:hover::before {
+            left: 100%;
+        }
+
+        .skill-item-important:hover {
+            transform: translateY(-5px);
+            background: rgba(34, 10, 154, 0.201);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
@@ -658,15 +728,6 @@
             cursor: pointer;
         }
 
-        #veille .projects-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            justify-items: center;
-        }
-
-        #veille .project-card {
-            width: 350px;
-        }
 
         .project-card:hover {
             transform: translateY(-10px);
@@ -1305,6 +1366,16 @@
                 font-size: 0.9rem;
             }
 
+            .skill-item-engine {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+
+            .skill-item-important {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+
             /* Art Gallery */
             .gallery-grid {
                 grid-template-columns: 1fr;
@@ -1376,6 +1447,15 @@
                 padding: 6px 12px;
             }
         }
+        .bouton {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+
+
     </style>
 </head>
 
@@ -1393,6 +1473,7 @@
             </div>
             <h1>Evan Kieffer</h1>
             <p class="tagline">Développeur de Jeux Vidéo & Applications</p>
+            <i class="q">&#10077;Penser. Créer. S'adapter. Persévérer.&#10078;</i>
             <div class="contact-info">
                 <div class="contact-item">
                     <i class="fas fa-phone"></i>
@@ -1404,7 +1485,7 @@
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>Saint-Crespin-Sur-Moine</span>
+                    <span>Nantes</span>
                 </div>
             </div>
         </div>
@@ -1419,8 +1500,7 @@
                 <a href="#games">Mes Jeux</a>
                 <a href="#projects">Projets</a>
                 <a href="#art">Art</a>
-                <a href="#internships">Stages</a>
-                <a href="veille.html">Veille</a>
+                <a href="#internships">Parcours</a>
                 <a href="#contact">Contact</a>
             </div>
             <div class="mobile-menu">
@@ -1450,40 +1530,22 @@
                          <li>BTS SIO (Service Informatique au Organisation) option SLAM a l'ESUPEC de cholet</li>
                         <li>Bac professionnel SN (Systèmes Numériques) option RISC (Réseaux Informatiques et Systèmes
                             Communicants) au lycée Saint-Gabriel à Saint-Laurent-Sur-Sèvre</li>
-                        <li>Diplôme National du Brevet série Générale</li>
                     </ul>
-                    <h3 style="margin-top: 30px; color: var(--accent);">Tableau de compétence</h3>
-                    <div class="competence-link">
-                        <a href="https://docs.google.com/spreadsheets/d/14yYrXPOzjYf4bmUaz6Jno1e4rbbiogcNLMqw2wckA08/edit?usp=sharing"
-                            target="_blank">
-                            <i class="fas fa-file-alt"></i>
-                            Tableau de synthèse des compétences
-                        </a>
-                    </div>
                 </div>
                 <div class="skills fade-in">
                     <h3>Compétences en Programmation</h3>
                     <div class="skills-grid">
-                        <div class="skill-item">Unity</div>
-                        <div class="skill-item">GameMaker</div>
-                        <div class="skill-item">C#</div>
-                        <div class="skill-item">Python</div>
-                        <div class="skill-item">C++</div>
+                        <div class="skill-item-engine">Unity</div>
+                        <div class="skill-item-engine">Unreal Engine</div>
+                        <div class="skill-item-important">C#</div>
+                        <div class="skill-item-important">C++</div>
+                        <div class="skill-item-important">Python</div>
                         <div class="skill-item">HTML/CSS</div>
-                        <div class="skill-item">Java</div>
-                        <div class="skill-item">JavaScript</div>
                         <div class="skill-item">SQL</div>
                         <div class="skill-item">PHP</div>
-                        <div class="skill-item">Symfony</div>
-                    </div>
-
-                    <h3 style="margin-top: 30px;">Soft Skills</h3>
-                    <div class="skills-grid" style="margin-top: 15px;">
-                        <div class="skill-item">S'adapte vite</div>
-                        <div class="skill-item">Esprit logique</div>
-                        <div class="skill-item">Passionné</div>
-                        <div class="skill-item">Déterminé</div>
-                        <div class="skill-item">Créatif</div>
+                        <div class="skill-item">Java</div>
+                        <div class="skill-item">JavaScript</div>
+                        
                     </div>
                 </div>
             </div>
@@ -1591,31 +1653,14 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section id="veille">
-        <div class="container">
-            <div class="section-title">
-                <h2>Veille Informatique</h2>
-            </div>
-
-            <div class="projects-grid">
-                <div class="project-card fade-in" onclick="window.location.href='veille.html'">
-                    <div class="project-img">
-                        <i class="fas fa-satellite-dish"></i>
+            <br>
+                    <div class="competence-link">
+                        <a href="https://docs.google.com/spreadsheets/d/14yYrXPOzjYf4bmUaz6Jno1e4rbbiogcNLMqw2wckA08/edit?usp=sharing"
+                            target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Tableau de synthèse des compétences
+                        </a>
                     </div>
-                    <div class="project-info">
-                        <h3>Symfony</h3>
-                        <p>
-                            Veille technologique sur le framework Symfony :
-                            versions récentes, nouveautés, cycle LTS et retour d'expérience en stage.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align:center; margin-top: 30px;">
-            </div>
         </div>
     </section>
     <!-- Art Section -->
@@ -1754,10 +1799,10 @@
                     <a href="https://ydra.itch.io" class="social-link fade-in" target="_blank">
                         <i class="fab fa-itch-io"></i>
                     </a>
-                    <a href="https://github.com/azevan230" class="social-link fade-in">
+                    <a href="https://github.com/azevan230" class="social-link fade-in" target="_blank">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/evan-kieffer-254517222/" class="social-link fade-in">
+                    <a href="https://www.linkedin.com/in/evan-kieffer-254517222/" class="social-link fade-in" target="_blank">
                         <i class="fab fa-linkedin"></i>
                     </a>
                 </div>
@@ -1846,7 +1891,7 @@
 
         // Effet magnétique et changement de couleur pour les éléments interactifs
         const interactiveElements = document.querySelectorAll(
-            'a, button, .project-card, .game-card, .gallery-item, .skill-item, .contact-item, .social-link, .carousel-dot, .close-modal, .back-to-top'
+            'a, button, .project-card, .gallery-item,.skill-item, .skill-item-important, .skill-item-engine, .timeline-item,.contact-item, .social-link, .carousel-dot, .close-modal, .back-to-top'
         );
 
         interactiveElements.forEach(el => {
